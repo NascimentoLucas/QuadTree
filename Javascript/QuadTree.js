@@ -100,7 +100,6 @@ class QuadTree {
     }
         
     UpdateBoids(color){
-
         if(this.root != null){
             for (let i = this.boids.length - 1; 
                 i >=0 ; i--) 
@@ -159,11 +158,6 @@ class QuadTree {
             }
             else{
                 this.hasLeaf = false;
-                color = 'black';
-                this.northwest.Update(ctx, color);
-                this.southwest.Update(ctx, color);
-                this.southeast.Update(ctx, color);
-                this.northeast.Update(ctx, color);
             }
            
         }
