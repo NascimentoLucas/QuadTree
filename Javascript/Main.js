@@ -2,7 +2,7 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 ctx.font = '12px serif';
 
-amount = 15;
+amount = 10;
 
 min_x = 25;
 map_widht = 500;

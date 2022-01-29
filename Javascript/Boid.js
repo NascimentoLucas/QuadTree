@@ -3,7 +3,7 @@ class Boid {
         this.x = _x;
         this.y = _y;
         this.radius = _radius;
-        this.speed = 0.1
+        this.speed = 0.05
         this.speedX = this.speed;
         this.speedY = this.speed;
     }

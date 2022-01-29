@@ -29,6 +29,14 @@ class QuadTree {
         return false;
     }
 
+    CopyLeafBoid(leaf){
+        for (let i = 0; i < leaf.boids.length; i++) {
+            const element = leaf.boids[i];
+            this.boids.push(element);
+        }
+        leaf.boids = Array();
+    }
+
     AddFromLeaf(boid){
         if(!this.AddToLeaf(boid)){
             if(this.root != null)
@@ -99,7 +107,7 @@ class QuadTree {
         }
     }
         
-    UpdateBoids(){
+    UpdateBoids(color){
 
         if(this.root != null){
             for (let i = this.boids.length - 1; 
@@ -124,7 +132,7 @@ class QuadTree {
                     break;
             }
 
-            boid.Update(ctx, 'black');
+            boid.Update(ctx, color);
         }
     }
 
@@ -138,13 +146,29 @@ class QuadTree {
         ctx.stroke();
 
         if(this.hasLeaf){
-            this.northwest.Update(ctx, 'yellow');
-            this.southwest.Update(ctx, 'blue');
-            this.southeast.Update(ctx, 'yellow');
-            this.northeast.Update(ctx, 'blue');
+            let amount = 0;
+            amount += this.northwest.Update(ctx, 'yellow');
+            amount += this.southwest.Update(ctx, 'blue');
+            amount += this.southeast.Update(ctx, 'yellow');
+            amount += this.northeast.Update(ctx, 'blue');
+
+            if(amount == 0){
+                this.hasLeaf = false;
+                
+                this.CopyLeafBoid(this.northwest);
+
+                this.CopyLeafBoid(this.southwest);
+
+                this.CopyLeafBoid(this.southeast);
+
+                this.CopyLeafBoid(this.northeast);
+            }
+            return amount;
         }
         else{
-            this.UpdateBoids();
+            this.UpdateBoids(color);
+            return this.boids.length;
         }
+        
     }
 }
