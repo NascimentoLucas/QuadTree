@@ -99,7 +99,7 @@ class QuadTree {
         }
     }
         
-    UpdateBoids(){
+    UpdateBoids(color){
 
         if(this.root != null){
             for (let i = this.boids.length - 1; 
@@ -124,7 +124,7 @@ class QuadTree {
                     break;
             }
 
-            boid.Update(ctx, 'black');
+            boid.Update(ctx, color);
         }
     }
 
@@ -138,13 +138,13 @@ class QuadTree {
         ctx.stroke();
 
         if(this.hasLeaf){
-            this.northwest.Update(ctx, 'yellow');
-            this.southwest.Update(ctx, 'blue');
-            this.southeast.Update(ctx, 'yellow');
-            this.northeast.Update(ctx, 'blue');
+            this.northwest.Update(ctx, 'red');
+            this.southwest.Update(ctx, 'green');
+            this.southeast.Update(ctx, 'blue');
+            this.northeast.Update(ctx, 'yellow');
         }
         else{
-            this.UpdateBoids();
+            this.UpdateBoids(color);
         }
     }
 }

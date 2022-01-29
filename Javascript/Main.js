@@ -14,7 +14,8 @@ quadtree = new QuadTree(null, min_x, min_x,
     map_widht, map_widht);
 
 for (let i = 0; i < amount; i++) {
-    const x = min_x + Math.floor(Math.random() * map_widht)
+    //const x = min_x + Math.floor(Math.random() * map_widht)
+    const x = (i + 1) * (min_x);
     quadtree.AddBoid(new Boid(x , 50, 5));
 }
 
