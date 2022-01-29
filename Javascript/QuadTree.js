@@ -151,7 +151,7 @@ class QuadTree {
             this.southeast.GetAmountBoids() +
             this.northeast.GetAmountBoids();
 
-            if(amount == amount){
+            if(amount > 0){
                 this.northwest.Update(ctx, 'red');
                 this.southwest.Update(ctx, 'green');
                 this.southeast.Update(ctx, 'blue');
