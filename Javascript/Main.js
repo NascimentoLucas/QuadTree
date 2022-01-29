@@ -2,13 +2,13 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 ctx.font = '12px serif';
 
-amount = 6;
+amount = 15;
 
 min_x = 25;
 map_widht = 500;
 
 background = new QuadTree(min_x, min_x, 
-    map_widht, map_widht);
+    map_widht*1.01, map_widht *1.01);
 
 quadtree = new QuadTree(min_x, min_x, 
     map_widht, map_widht);

@@ -56,7 +56,6 @@ class QuadTree {
 
         const w = this.width / 2;
         const h = this.height / 2;
-        console.log(h);
         let x = this.x;
         let y = this.y;
 
@@ -78,11 +77,16 @@ class QuadTree {
     }
     
     AddBoid(boid){
-        if(this.boids.length >= this.max_boids){
-            this.Divide(boid);
-            return;
+        if(!this.hasLeaf){
+            if(this.boids.length >= this.max_boids){           
+                this.Divide(boid);
+                return;
+            }
+            this.boids.push(boid);
         }
-        this.boids.push(boid);
+        else{
+            this.AddToLeaf(boid);
+        }
     }
         
     UpdateBoids(){
