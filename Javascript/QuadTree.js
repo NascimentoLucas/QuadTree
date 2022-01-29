@@ -30,8 +30,7 @@ class QuadTree {
     }
 
     AddFromLeaf(boid){
-        if(!this.AddToLeaf(boid)){
-            if(this.root != null)
+        if(!this.AddToLeaf(boid)){           
             this.root.AddFromLeaf(boid);
         }
     }
@@ -89,7 +88,8 @@ class QuadTree {
     AddBoid(boid){
         if(!this.hasLeaf){
             if(this.boids.length >= this.max_boids){           
-                this.Divide(boid);
+                this.Divide(boid);                
+                this.boids = Array();
                 return;
             }
             this.boids.push(boid);
@@ -128,22 +128,53 @@ class QuadTree {
         }
     }
 
-    Update (ctx, color) {    
-        ctx.beginPath();  
-        ctx.strokeStyle = color; 
-        ctx.fillStyle = color;        
-        //ctx.fillText(this.id + '', posX, posY );  
-        ctx.rect(this.x, this.y, 
-            this.width, this.height); 
-        ctx.stroke();
-
-        if(this.hasLeaf){
-            this.northwest.Update(ctx, 'red');
-            this.southwest.Update(ctx, 'green');
-            this.southeast.Update(ctx, 'blue');
-            this.northeast.Update(ctx, 'yellow');
+    GetAmountBoids(){
+        if(this,this.hasLeaf){
+            let amount = 
+            this.northwest.GetAmountBoids() +
+            this.southwest.GetAmountBoids() +
+            this.southeast.GetAmountBoids() +
+            this.northeast.GetAmountBoids();
+            return amount;
         }
         else{
+            return this.boids.length;
+        }
+    }
+
+    Update (ctx, color) { 
+        if(this.hasLeaf){
+
+            let amount = 
+            this.northwest.GetAmountBoids() +
+            this.southwest.GetAmountBoids() +
+            this.southeast.GetAmountBoids() +
+            this.northeast.GetAmountBoids();
+
+            if(amount == amount){
+                this.northwest.Update(ctx, 'red');
+                this.southwest.Update(ctx, 'green');
+                this.southeast.Update(ctx, 'blue');
+                this.northeast.Update(ctx, 'yellow');
+            }
+            else{
+                this.hasLeaf = false;
+                color = 'black';
+                this.northwest.Update(ctx, color);
+                this.southwest.Update(ctx, color);
+                this.southeast.Update(ctx, color);
+                this.northeast.Update(ctx, color);
+            }
+           
+        }
+        else{   
+            ctx.beginPath();  
+            ctx.strokeStyle = color; 
+            ctx.fillStyle = color;        
+            //ctx.fillText(this.id + '', posX, posY );  
+            ctx.rect(this.x, this.y, 
+                this.width * 0.99, this.height* 0.99); 
+            ctx.stroke();
             this.UpdateBoids(color);
         }
     }

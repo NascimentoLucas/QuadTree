@@ -7,8 +7,6 @@ amount = 15;
 min_x = 25;
 map_widht = 500;
 
-background = new QuadTree(null, min_x, min_x, 
-    map_widht*1.01, map_widht *1.01);
 
 quadtree = new QuadTree(null, min_x, min_x, 
     map_widht, map_widht);
@@ -23,8 +21,8 @@ Update();
 
 function Update(){
 ctx.clearRect(0, 0, canvas.width, canvas.height);
-background.Update(ctx, 'black');
-quadtree.Update(ctx, 'green');
+
+quadtree.Update(ctx, 'cyan');
 
 setInterval(function() {
     Update();
