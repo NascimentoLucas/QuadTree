@@ -1,5 +1,6 @@
 class QuadTree {
-    constructor(_x , _y, _widht, _height){            
+    constructor(_root, _x , _y, _widht, _height){      
+        this.root = _root;      
         this.x = _x;
         this.y = _y;
         this.width = _widht;
@@ -16,11 +17,11 @@ class QuadTree {
     }
 
     IsInside(boid){
-        if(boid.x > this.x 
-            & boid.x < this.x + this.width)
+        if(boid.x >= this.x 
+            & boid.x <= this.x + this.width)
             {
-                if(boid.y > this.y 
-                    & boid.y < this.y + this.height)
+                if(boid.y >= this.y 
+                    & boid.y <= this.y + this.height)
             {
                 return true;
             }
@@ -28,27 +29,36 @@ class QuadTree {
         return false;
     }
 
+    AddFromLeaf(boid){
+        if(!this.AddToLeaf(boid)){
+            if(this.root != null)
+            this.root.AddFromLeaf(boid);
+        }
+    }
+
     AddToLeaf(b)
     {
         if(this.northwest.IsInside(b)){
             this.northwest.AddBoid(b);
-            return;
+            return true;
         }
 
         if(this.southwest.IsInside(b)){
             this.southwest.AddBoid(b);
-            return;
+            return true;
         }
 
         if(this.southeast.IsInside(b)){
             this.southeast.AddBoid(b);
-            return;
+            return true;
         }
 
         if(this.northeast.IsInside(b)){
             this.northeast.AddBoid(b);
-            return;
+            return true;
         }
+        
+        return false;
     }
 
     Divide(boid){
@@ -59,13 +69,13 @@ class QuadTree {
         let x = this.x;
         let y = this.y;
 
-        this.northwest = new QuadTree(x,y, w, h);
+        this.northwest = new QuadTree(this, x, y, w, h);
         y += h;
-        this.southwest = new QuadTree(x,y, w, h);
+        this.southwest = new QuadTree(this, x, y, w, h);
         x += w;
-        this.southeast = new QuadTree(x,y, w, h);
+        this.southeast = new QuadTree(this, x, y, w, h);
         y -= h;
-        this.northeast = new QuadTree(x,y, w, h);
+        this.northeast = new QuadTree(this, x, y, w, h);
 
         for (let i = 0; i < this.boids.length; i++) {
             const b = this.boids[i];
@@ -90,19 +100,33 @@ class QuadTree {
     }
         
     UpdateBoids(){
-        for (let i = 0; i < this.boids.length; i++) {
-        for (let j = i + 1; j < this.boids.length; j++) {
-            const col = this.boids[i].Colision(this.boids[j]);
-            if(col)
-            break;
+
+        if(this.root != null){
+            for (let i = this.boids.length - 1; 
+                i >=0 ; i--) 
+            {
+                const boid = this.boids[i];
+                if(!this.IsInside(boid)){
+                    this.root.AddFromLeaf(boid);
+                    this.boids.splice(i, 1);
+                }
+            }
+        }
+
+        for (let i = 0; i < this.boids.length; i++) 
+        {
+            const boid = this.boids[i];
+
+            for (let j = i + 1; j < this.boids.length; j++) 
+            {
+                const col = boid.Colision(this.boids[j]);
+                if(col)
+                    break;
+            }
+
+            boid.Update(ctx, 'black');
         }
     }
-
-    for (let i = 0; i < this.boids.length; i++) {
-        const boid = this.boids[i];
-        boid.Update(ctx, 'black');
-    }
-}
 
     Update (ctx, color) {    
         ctx.beginPath();  
@@ -120,7 +144,7 @@ class QuadTree {
             this.northeast.Update(ctx, 'blue');
         }
         else{
-        this.UpdateBoids();
+            this.UpdateBoids();
         }
     }
 }

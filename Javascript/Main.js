@@ -7,10 +7,10 @@ amount = 15;
 min_x = 25;
 map_widht = 500;
 
-background = new QuadTree(min_x, min_x, 
+background = new QuadTree(null, min_x, min_x, 
     map_widht*1.01, map_widht *1.01);
 
-quadtree = new QuadTree(min_x, min_x, 
+quadtree = new QuadTree(null, min_x, min_x, 
     map_widht, map_widht);
 
 for (let i = 0; i < amount; i++) {
@@ -24,7 +24,7 @@ function Update(){
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 background.Update(ctx, 'black');
 quadtree.Update(ctx, 'green');
-return;
+
 setInterval(function() {
     Update();
   }, 100);

@@ -41,14 +41,14 @@ class Boid {
         
     Update (ctx, color) {  
         
-        if(this.x > map_widht + min_x)
+        if(this.x + this.radius > map_widht + min_x)
             this.speedX = -this.speed;
-        else if(this.x < min_x)
+        else if(this.x - this.radius < min_x)
             this.speedX = this.speed;
 
-        if(this.y > map_widht + min_x)
+        if(this.y + this.radius > map_widht + min_x)
             this.speedY = -this.speed;
-        else if(this.y < min_x)
+        else if(this.y - this.radius < min_x)
             this.speedY = this.speed;
 
         this.x += this.speedX;
