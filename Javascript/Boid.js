@@ -9,7 +9,6 @@ class Boid {
     }
 
     Check_Collision (boid) {
-        var a;
         var x;
         var y;
     
@@ -17,7 +16,7 @@ class Boid {
         x = this.x - boid.x;
         y = this.y - boid.y;
     
-        if ( Math.sqrt((x*x) + (y*y)) < this.radius) {
+        if (Math.sqrt((x*x) + (y*y)) < this.radius) {
             return true;
         } else {
             return false;
