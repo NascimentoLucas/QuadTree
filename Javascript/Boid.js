@@ -3,7 +3,7 @@ class Boid {
         this.x = _x;
         this.y = _y;
         this.radius = _radius;
-        this.speed = 0.05
+        this.speed = 1;
         this.speedX = this.speed;
         this.speedY = this.speed;
     }
@@ -53,8 +53,6 @@ class Boid {
 
         this.x += this.speedX;
         this.y += this.speedY;
-
-
 
         ctx.beginPath();  
         ctx.strokeStyle = color; 

@@ -29,17 +29,8 @@ class QuadTree {
         return false;
     }
 
-    CopyLeafBoid(leaf){
-        for (let i = 0; i < leaf.boids.length; i++) {
-            const element = leaf.boids[i];
-            this.boids.push(element);
-        }
-        leaf.boids = Array();
-    }
-
     AddFromLeaf(boid){
-        if(!this.AddToLeaf(boid)){
-            if(this.root != null)
+        if(!this.AddToLeaf(boid)){           
             this.root.AddFromLeaf(boid);
         }
     }
@@ -97,7 +88,8 @@ class QuadTree {
     AddBoid(boid){
         if(!this.hasLeaf){
             if(this.boids.length >= this.max_boids){           
-                this.Divide(boid);
+                this.Divide(boid);                
+                this.boids = Array();
                 return;
             }
             this.boids.push(boid);
@@ -108,7 +100,6 @@ class QuadTree {
     }
         
     UpdateBoids(color){
-
         if(this.root != null){
             for (let i = this.boids.length - 1; 
                 i >=0 ; i--) 
@@ -136,39 +127,49 @@ class QuadTree {
         }
     }
 
-    Update (ctx, color) {    
-        ctx.beginPath();  
-        ctx.strokeStyle = color; 
-        ctx.fillStyle = color;        
-        //ctx.fillText(this.id + '', posX, posY );  
-        ctx.rect(this.x, this.y, 
-            this.width, this.height); 
-        ctx.stroke();
-
-        if(this.hasLeaf){
-            let amount = 0;
-            amount += this.northwest.Update(ctx, 'yellow');
-            amount += this.southwest.Update(ctx, 'blue');
-            amount += this.southeast.Update(ctx, 'yellow');
-            amount += this.northeast.Update(ctx, 'blue');
-
-            if(amount == 0){
-                this.hasLeaf = false;
-                
-                this.CopyLeafBoid(this.northwest);
-
-                this.CopyLeafBoid(this.southwest);
-
-                this.CopyLeafBoid(this.southeast);
-
-                this.CopyLeafBoid(this.northeast);
-            }
+    GetAmountBoids(){
+        if(this,this.hasLeaf){
+            let amount = 
+            this.northwest.GetAmountBoids() +
+            this.southwest.GetAmountBoids() +
+            this.southeast.GetAmountBoids() +
+            this.northeast.GetAmountBoids();
             return amount;
         }
         else{
-            this.UpdateBoids(color);
             return this.boids.length;
         }
-        
+    }
+
+    Update (ctx, color) { 
+        if(this.hasLeaf){
+
+            let amount = 
+            this.northwest.GetAmountBoids() +
+            this.southwest.GetAmountBoids() +
+            this.southeast.GetAmountBoids() +
+            this.northeast.GetAmountBoids();
+
+            if(amount > 0){
+                this.northwest.Update(ctx, 'red');
+                this.southwest.Update(ctx, 'green');
+                this.southeast.Update(ctx, 'blue');
+                this.northeast.Update(ctx, 'yellow');
+            }
+            else{
+                this.hasLeaf = false;
+            }
+           
+        }
+        else{   
+            ctx.beginPath();  
+            ctx.strokeStyle = color; 
+            ctx.fillStyle = color;        
+            //ctx.fillText(this.id + '', posX, posY );  
+            ctx.rect(this.x, this.y, 
+                this.width * 0.99, this.height* 0.99); 
+            ctx.stroke();
+            this.UpdateBoids(color);
+        }
     }
 }
