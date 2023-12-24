@@ -16,7 +16,7 @@ class Boid {
     var x = this.x - boid.x;
     var y = this.y - boid.y;
 
-    if (Math.sqrt(x * x + y * y) < this.radius) {
+    if (Math.sqrt(x * x + y * y) < this.radius / 2) {
       return true;
     } else {
       return false;
@@ -58,8 +58,8 @@ class Boid {
       this.speedY = -this.speed;
     else if (this.y - this.radius < left_padding) this.speedY = this.speed;
 
-    this.x += this.speedX;
-    this.y += this.speedY;
+    this.x += this.speedX * global_speed;
+    this.y += this.speedY * global_speed;
 
     ctx.beginPath();
     ctx.strokeStyle = color;

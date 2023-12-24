@@ -6,10 +6,18 @@ ui.canvas.addEventListener("mousedown", function (e) {
 
 const left_padding = 10;
 const map_widht = 2900;
+global_speed = 1;
 amount = 1000;
 total = 0;
 count = 0;
 
+ui.slider_speed.value = global_speed;
+ui.slider_speed.oninput = function () {
+  if (ui.slider_speed.value == 0) return;
+
+  global_speed = ui.slider_speed.value;
+  ui.slider_speed_text.innerHTML = "Speed:" + global_speed;
+};
 ui.CreateButton("Update Amount", ChangeAmount);
 ui.CreateButton("Change Mode", ChangeMode);
 ui.CreateButton("Change Paint", ChangePaint);
@@ -22,7 +30,7 @@ function CreateNew() {
   total = 0;
   count = 0;
 
-  ui.sliderText.innerText = "Total Boids:" + amount;
+  ui.slider_total_text.innerText = "Total Boids:" + amount;
   if (horse_mode) {
     current_mode = new HorseMode(amount);
   } else {
@@ -48,7 +56,7 @@ function Update() {
 }
 
 function ChangeAmount() {
-  amount = ui.slider.value;
+  amount = ui.slider_total.value;
   CreateNew();
 }
 

@@ -2,12 +2,21 @@ class UIControl {
   constructor() {
     this.is_to_paint = true;
     this.canvas = document.getElementById("canvas");
-    this.slider = document.getElementById("numberSlider");
-    this.sliderText = document.getElementById("numberSliderText");
+    this.slider_total = document.getElementById("numberSlider");
+    this.slider_total_text = document.getElementById("numberSliderText");
 
-    this.slider.oninput = function () {
+    this.slider_total.oninput = function () {
       const slider = document.getElementById("numberSlider");
       const sliderText = document.getElementById("numberSliderText");
+      sliderText.innerText = "New Total Boids: " + slider.value;
+    };
+
+    this.slider_speed = document.getElementById("speedSlider");
+    this.slider_speed_text = document.getElementById("speedSliderText");
+
+    this.slider_speed.oninput = function () {
+      const slider = document.getElementById("speedSlider");
+      const sliderText = document.getElementById("speedSliderText");
       sliderText.innerText = "New Total Boids: " + slider.value;
     };
 
