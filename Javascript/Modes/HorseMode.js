@@ -2,8 +2,8 @@ class HorseMode {
   constructor(amount) {
     this.boids = Array();
     for (let i = 0; i < amount; i++) {
-      const x = min_x + Math.floor(Math.random() * map_widht);
-      const y = min_x + Math.floor(Math.random() * (map_widht / 2));
+      const x = left_padding + Math.floor(Math.random() * map_widht);
+      const y = left_padding + Math.floor(Math.random() * (map_widht / 2));
       this.boids.push(new Boid(x, y, 5));
     }
   }

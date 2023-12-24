@@ -12,6 +12,7 @@ class Boid {
   }
 
   CheckCollision(boid) {
+    ///https://brasilescola.uol.com.br/matematica/distancia-entre-dois-pontos.htm
     var x = this.x - boid.x;
     var y = this.y - boid.y;
 
@@ -29,7 +30,6 @@ class Boid {
       case 0:
         this.speedX = -this.speedX;
         break;
-
       case 1:
         this.speedY = -this.speedY;
         break;
@@ -50,11 +50,13 @@ class Boid {
   }
 
   Update(ctx, color) {
-    if (this.x + this.radius > map_widht + min_x) this.speedX = -this.speed;
-    else if (this.x - this.radius < min_x) this.speedX = this.speed;
+    if (this.x + this.radius > map_widht + left_padding)
+      this.speedX = -this.speed;
+    else if (this.x - this.radius < left_padding) this.speedX = this.speed;
 
-    if (this.y + this.radius > map_widht + min_x) this.speedY = -this.speed;
-    else if (this.y - this.radius < min_x) this.speedY = this.speed;
+    if (this.y + this.radius > map_widht + left_padding)
+      this.speedY = -this.speed;
+    else if (this.y - this.radius < left_padding) this.speedY = this.speed;
 
     this.x += this.speedX;
     this.y += this.speedY;

@@ -4,19 +4,18 @@ ui.canvas.addEventListener("mousedown", function (e) {
   pause = !pause;
 });
 
-min_x = 10;
-map_widht = 2900;
-amount = 5000;
+const left_padding = 10;
+const map_widht = 2900;
+amount = 1000;
 total = 0;
 count = 0;
-
-horse_mode = true;
-ChangeMode();
 
 ui.CreateButton("Update Amount", ChangeAmount);
 ui.CreateButton("Change Mode", ChangeMode);
 ui.CreateButton("Change Paint", ChangePaint);
-CreateNew();
+
+horse_mode = true;
+ChangeMode();
 setInterval(Update, 10);
 
 function CreateNew() {
@@ -36,7 +35,7 @@ function Update() {
 
   ui.ctx.clearRect(0, 0, ui.canvas.width, ui.canvas.height);
   ui.ctx.beginPath();
-  ui.ctx.rect(min_x, min_x, map_widht, map_widht);
+  ui.ctx.rect(left_padding, left_padding, map_widht, map_widht);
   ui.ctx.stroke();
 
   var startTime = performance.now();
