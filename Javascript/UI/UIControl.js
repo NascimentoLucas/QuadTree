@@ -3,6 +3,13 @@ class UIControl {
     this.is_to_paint = true;
     this.canvas = document.getElementById("canvas");
     this.slider = document.getElementById("numberSlider");
+    this.sliderText = document.getElementById("numberSliderText");
+
+    this.slider.oninput = function () {
+      const slider = document.getElementById("numberSlider");
+      const sliderText = document.getElementById("numberSliderText");
+      sliderText.innerText = "New Total Boids: " + slider.value;
+    };
 
     this.ctx = this.canvas.getContext("2d");
     this.ctx.font = "12px serif";
@@ -19,10 +26,7 @@ class UIControl {
     this.info_panel.appendChild(newButton);
   }
 
-  CreateText(info_panel) {
-    this.total_boids = document.createElement("p");
-    this.info_panel.appendChild(this.total_boids);
-
+  CreateText() {
     this.frame_info = document.createElement("p");
     this.info_panel.appendChild(this.frame_info);
   }

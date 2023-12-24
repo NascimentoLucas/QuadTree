@@ -22,7 +22,7 @@ function CreateNew() {
   total = 0;
   count = 0;
 
-  ui.total_boids.innerText = "Total Boids:" + amount;
+  ui.sliderText.innerText = "Total Boids:" + amount;
   if (horse_mode) {
     current_mode = new HorseMode(amount);
   } else {
