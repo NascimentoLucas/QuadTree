@@ -1,5 +1,5 @@
 # QuadTree
-Projeto criado para ajudar o entendimento de quadtree. O programa tem dois comportamentos: Horse Mode e Quadtreemode. No horse mode todos os boids testam colisão com todos os outros, isso ocorre através de dois loops for. Já no quadtreemode é usado a quadtree para gerenciar os boids dentro da tree, e assim, só testar boids q estejam na mesma folha.
+Projeto criado para ajudar o entendimento de quadtree. O programa tem dois comportamentos: Horse Mode e Quadtreemode. No horse mode todos os boids testam colisão com todos os outros, isso ocorre através de dois loops for. Já no quadtreemode é usado a quadtree para gerenciar os boids, e assim, só testar boids q estejam na mesma folha.
 
 
 
