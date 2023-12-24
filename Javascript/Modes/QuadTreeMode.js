@@ -10,13 +10,7 @@ class QuadTreeMode {
 
   Update(ctx) {
     if (!pause) {
-      var startTime = performance.now();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.quadtree.Update(ctx, "cyan");
-      var endTime = performance.now();
-
-      count++;
-      total += endTime - startTime;
     }
   }
 }

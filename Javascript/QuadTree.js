@@ -111,7 +111,7 @@ class QuadTree {
         if (col) break;
       }
 
-      boid.Update(ctx, color);
+      boid.Update(ui.ctx, color);
     }
   }
 
@@ -128,7 +128,7 @@ class QuadTree {
     }
   }
 
-  Update(ctx, color) {
+  Update(ctx, color, is_to_paint) {
     if (this.hasLeaf) {
       let amount =
         this.northwest.GetAmountBoids() +
@@ -145,20 +145,24 @@ class QuadTree {
         this.hasLeaf = false;
       }
     } else {
-      ctx.beginPath();
-      ctx.strokeStyle = color;
-      ctx.fillStyle = color;
+      if (ui.is_to_paint) {
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
 
-      ctx.font = "30px Arial";
-      ctx.fillStyle = "black";
-      ctx.fillText(
-        "" + this.boids.length,
-        this.x + this.width / 2,
-        this.y + this.height / 2
-      );
+        ctx.font = "30px Arial";
+        ctx.fillStyle = "black";
+        ctx.fillText(
+          "" + this.boids.length,
+          this.x + this.width / 2,
+          this.y + this.height / 2
+        );
 
-      ctx.rect(this.x, this.y, this.width * 0.99, this.height * 0.99);
-      ctx.stroke();
+        ctx.rect(this.x, this.y, this.width * 0.99, this.height * 0.99);
+        ctx.stroke();
+      } else {
+        color = "black";
+      }
       this.UpdateBoids(color);
     }
   }
