@@ -148,7 +148,15 @@ class QuadTree {
       ctx.beginPath();
       ctx.strokeStyle = color;
       ctx.fillStyle = color;
-      //ctx.fillText(this.id + '', posX, posY );
+
+      ctx.font = "30px Arial";
+      ctx.fillStyle = "black";
+      ctx.fillText(
+        "" + this.boids.length,
+        this.x + this.width / 2,
+        this.y + this.height / 2
+      );
+
       ctx.rect(this.x, this.y, this.width * 0.99, this.height * 0.99);
       ctx.stroke();
       this.UpdateBoids(color);

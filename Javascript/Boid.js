@@ -11,12 +11,9 @@ class Boid {
     this.speedY = this.speed * y_direct;
   }
 
-  Check_Collision(boid) {
-    var x;
-    var y;
-
-    x = this.x - boid.x;
-    y = this.y - boid.y;
+  CheckCollision(boid) {
+    var x = this.x - boid.x;
+    var y = this.y - boid.y;
 
     if (Math.sqrt(x * x + y * y) < this.radius) {
       return true;
@@ -44,7 +41,7 @@ class Boid {
   }
 
   Colision(boid) {
-    if (this.Check_Collision(boid)) {
+    if (this.CheckCollision(boid)) {
       this.Inverse();
       boid.Inverse();
       return true;
@@ -65,7 +62,6 @@ class Boid {
     ctx.beginPath();
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
-    //ctx.fillText(this.id + '', posX, posY );
     ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     ctx.stroke();
   }

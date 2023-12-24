@@ -1,7 +1,7 @@
-let lock = false;
+let pause = false;
 var canvas = document.getElementById("canvas");
 canvas.addEventListener("mousedown", function (e) {
-  lock = !lock;
+  pause = !pause;
 });
 
 var ctx = canvas.getContext("2d");
@@ -11,15 +11,17 @@ current_mode = null;
 min_x = 10;
 map_widht = 2900;
 
-quadtree = new QuadTree(null, min_x, min_x, map_widht, map_widht);
-
 count = 0;
 total = 0;
 
-boids = Array();
+amount = 500;
+
+current_mode = new HorseMode(amount);
+current_mode = new QuadTreeMode(amount);
+setInterval(Update, 10);
 
 function Update() {
-  if (lock) return;
+  if (pause) return;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
@@ -27,13 +29,7 @@ function Update() {
   ctx.stroke();
 
   var startTime = performance.now();
-  current_mode.Update(ctx, boids);
+  current_mode.Update(ctx);
   var endTime = performance.now();
   total += endTime - startTime;
 }
-
-amount = 500;
-
-current_mode = new HorseMode(boids, amount);
-current_mode = new QuadTreeMode(boids, amount);
-setInterval(Update, 10);
