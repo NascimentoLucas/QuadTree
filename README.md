@@ -6,6 +6,12 @@ Projeto criado para ajudar o entendimento de quadtree. O programa tem dois compo
 # Dicas
 * Veja os arquivos [HorseMode.js]([url](https://github.com/NascimentoLucas/QuadTree/blob/master/Javascript/Modes/HorseMode.js)https://github.com/NascimentoLucas/QuadTree/blob/master/Javascript/Modes/HorseMode.js) e [QuadTreeMode.js]([url](https://github.com/NascimentoLucas/QuadTree/blob/master/Javascript/Modes/QuadTreeMode.js)https://github.com/NascimentoLucas/QuadTree/blob/master/Javascript/Modes/QuadTreeMode.js) para entender melhor o fluxo de criação e execução dos boids.
 * Para implementação própria indico que :
+  * Não deixem todo o código em um mesmo arquivo, tenham **pelo menos** essas classes:
+    * Boid
+    * HorseMode
+    * QuadtreeMode
+    * Quadtree ( sim uma classe para QuadtreeMode e **outra** para o Quadtree
+    * Main (classe para iniciar os modes)
   * Primeiro implemente o boid com as seguintes "mecânicas":
     * Draw (ele se desenhar na tela)
     * Movimentação
@@ -21,3 +27,10 @@ Projeto criado para ajudar o entendimento de quadtree. O programa tem dois compo
     * Se você deixar isso em uma variável booleana (verdadeira ou falso) aumenta a chance dessa informação não ser corretamente atualizada.
   * Implemente a remoção de boids da quadtree.
     * Aqui de novo vale limitar a movimentação dos boids para facilitar o debug, como: reduzir velocidade, limitar a velocidade a um eixo.
+
+# Links
+* [Conta da colisão dos boids](https://brasilescola.uol.com.br/matematica/distancia-entre-dois-pontos.htm)
+* [Quadtree](https://en.wikipedia.org/wiki/Quadtree#:~:text=A%20quadtree%20is%20a%20tree,into%20four%20quadrants%20or%20regions.)
+* [Método para gerar números aleatórios](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
+* [Método para adicionar em array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
+* [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
