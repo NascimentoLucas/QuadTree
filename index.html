@@ -33,7 +33,18 @@
     </style>
   </head>
   <body>
-    <div id="left-side"></div>
+    <div id="left-side">
+      <label for="numberSlider">Select a Number:</label>
+      <input
+        type="range"
+        id="numberSlider"
+        name="numberSlider"
+        min="0"
+        max="5000"
+        step="1"
+        value="5"
+      />
+    </div>
     <div id="right-side">
       <canvas
         id="canvas"

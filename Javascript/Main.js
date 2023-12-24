@@ -13,16 +13,22 @@ count = 0;
 horse_mode = true;
 ChangeMode();
 
-ui.total_boids.innerText = "Total Boids:" + amount;
+ui.CreateButton("Update Amount", ChangeAmount);
 ui.CreateButton("Change Mode", ChangeMode);
 ui.CreateButton("Change Paint", ChangePaint);
 CreateNew();
 setInterval(Update, 10);
 
 function CreateNew() {
-  amount = 5000;
   total = 0;
   count = 0;
+
+  ui.total_boids.innerText = "Total Boids:" + amount;
+  if (horse_mode) {
+    current_mode = new HorseMode(amount);
+  } else {
+    current_mode = new QuadTreeMode(amount);
+  }
 }
 
 function Update() {
@@ -42,6 +48,11 @@ function Update() {
   ui.frame_info.innerText = "Avg frame time: \n" + (total / count).toFixed(2);
 }
 
+function ChangeAmount() {
+  amount = ui.slider.value;
+  CreateNew();
+}
+
 function ChangePaint() {
   ui.is_to_paint = !ui.is_to_paint;
 }
@@ -49,11 +60,6 @@ function ChangePaint() {
 function ChangeMode() {
   pause = true;
   horse_mode = !horse_mode;
-  if (horse_mode) {
-    current_mode = new HorseMode(amount);
-  } else {
-    current_mode = new QuadTreeMode(amount);
-  }
   CreateNew();
   pause = false;
 }

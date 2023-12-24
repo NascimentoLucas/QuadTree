@@ -2,6 +2,7 @@ class UIControl {
   constructor() {
     this.is_to_paint = true;
     this.canvas = document.getElementById("canvas");
+    this.slider = document.getElementById("numberSlider");
 
     this.ctx = this.canvas.getContext("2d");
     this.ctx.font = "12px serif";
